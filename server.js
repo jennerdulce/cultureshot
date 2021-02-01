@@ -25,6 +25,8 @@ client.on('error', err => {
 // Routes
 app.get('/', homeHandler);
 app.get('/test', testHandler);
+app.get('/searchForm', searchFormHandler);
+app.post('/results', resultsHandler);
 
 
 // Handlers
@@ -32,8 +34,63 @@ function homeHandler(request, response){
   // Start code Here
 }
 
-function test__INSERTROUTE__(request, response){
+function testHandler(request, response){
   // Start code Here
+}
+
+function searchFormHandler(request, response){
+  response.status(200).render('searchForm');
+}
+
+function resultsHandler(request, response){
+
+  let url1 = ``;
+  let url2 = ``;
+  let url3 = ``;
+  let apiData = {}
+
+  superagent.get(url1)
+    .then(results => {
+      let data = results.body[1];
+      let drinkResults = data.map(value => {
+        return new Drinks(value);
+      });
+      container.push(drinkResults);
+    });
+
+    superagent.get(url2)
+    .then(results => {
+      let data = results.body[1];
+      let drinkResults = data.map(value => {
+        return new Drinks(value);
+      });
+      container.push(drinkResults);
+    });
+
+    superagent.get(url3)
+    .then(results => {
+      let data = results.body[1];
+      let drinkResults = data.map(value => {
+        return new Drinks(value);
+      });
+      container.push(drinkResults);
+    });
+    
+    response.status(200).render('results', {data: container});
+}
+
+
+// Constructor
+// function Drinks(data){
+//   this.name = ;
+//   this.description = ;
+//   this.image = ;
+//   this. = ;
+// }
+
+function Location(data){
+  // How will be searching for the location?
+  // city? lat and lon? zipcode?
 }
 
 client.connect()

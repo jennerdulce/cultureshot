@@ -1,0 +1,12 @@
+/* SEARCH FORM */
+#search-form h2 {
+  font-size: 24px;
+  margin-top: 10px
+}
+
+#search-form input{
+  display: block;
+  font-size: 18px;
+  margin: 20px 0px;
+  margin-left: 10%
+}
