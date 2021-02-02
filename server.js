@@ -47,7 +47,7 @@ function resultsHandler(request, response){
   let url1 = ``;
   let url2 = ``;
   let url3 = ``;
-  let apiData = {}
+  let apiData = {};
 
   superagent.get(url1)
     .then(results => {
