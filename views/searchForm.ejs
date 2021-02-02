@@ -9,7 +9,15 @@
   <body id="search-form">
     <h2>Search for a Drink</h2>
     <form action="/results" method="POST">
-      <input type="text" id="search" name="search" placeholder="Type a Drink">
+      <select name="filter" id="filter">
+        <option value="name">Search By Name</option>
+        <option value="ingredient">Search By Ingredient</option>
+        <input type="text" id="search" name="search" placeholder="Type a Drink">
+      </select>
+      <button>Submit</button>
+    </form>
+
+    <form action="/location">
       <input type="text" id="location" name="location" placeholder="Enter a City">
       <button>Submit</button>
     </form>
