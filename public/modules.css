@@ -1,0 +1,59 @@
+/* NAVBAR/MENU */
+
+nav h1 {
+  background-color: black;
+  font-size: 36px;
+  padding: 20px 10px
+}
+
+nav h3 {
+  background-color: rgb(202, 202, 202);
+  font-size: 16px;
+  padding: 10px 5px
+}
+
+nav h3:hover {
+  text-decoration: underline;
+  cursor: pointer
+}
+
+#menu {
+  background-color: rgb(202, 202, 202);
+}
+
+#menu li {
+  padding: 4px 2px ;
+}
+
+#menu a:link, #menu a:active, #menu a:visited {
+ text-decoration: none;
+ color: black
+}
+
+nav a:link, nav a:active, nav a:visited {
+  color: white;
+  font-style: italic;
+  text-decoration: none;
+}
+
+#menu a:hover, nav a:hover {
+  text-decoration: underline;
+}
+
+
+footer {
+  background-color: black;
+  margin: auto;
+  width: 480px;
+  margin-top: 400px;
+  color: white;
+  display: flex;
+  justify-content: space-around;
+  font-size: 48px;
+  text-align: center;
+}
+
+footer a {
+  color: white;
+  text-decoration: none;
+}

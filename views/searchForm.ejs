@@ -1,0 +1,20 @@
+<html lang="en">
+
+<head>
+  <%- include('layout/head') %>
+</head>
+
+<div id="container">
+  <%- include('layout/navbar') %>
+  <body id="search-form">
+    <h2>Search for a Drink</h2>
+    <form action="/results" method="POST">
+      <input type="text" id="search" name="search" placeholder="Type a Drink">
+      <input type="text" id="location" name="location" placeholder="Enter a City">
+      <button>Submit</button>
+    </form>
+    <%- include('layout/footer') %>
+    <script src="app.js"></script>
+  </body>
+</div>
+</html>
