@@ -16,7 +16,7 @@ app.set('view engine', 'ejs');
 
 // Express middleware
 app.use(express.static('./public'));
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 
 client.on('error', err => {
   throw err;
@@ -30,65 +30,64 @@ app.post('/results', resultsHandler);
 
 
 // Handlers
-function homeHandler(request, response){
+function homeHandler(request, response) {
   // Start code Here
 }
 
-function testHandler(request, response){
+function testHandler(request, response) {
   // Start code Here
 }
 
-function searchFormHandler(request, response){
+function searchFormHandler(request, response) {
   response.status(200).render('searchForm');
 }
 
-function resultsHandler(request, response){
+function resultsHandler(request, response) {
+  let url = `https://www.thecocktaildb.com/api/json/v1/1/`;
 
-  let url1 = ``;
-  let url2 = ``;
-  let url3 = ``;
-  let apiData = {}
+  if (request.body.filter === 'name') {
+    url += `search.php?s=${request.body.search}`;
 
-  superagent.get(url1)
-    .then(results => {
-      let data = results.body[1];
-      let drinkResults = data.map(value => {
-        return new Drinks(value);
+    superagent.get(url)
+      .then(results => {
+        let data = results.body.drinks;
+        let drinkResults = data.map(value => {
+          return new Recipe(value);
+        });
+        apiData.push(drinkResults);
       });
-      container.push(drinkResults);
-    });
+  }
 
-    superagent.get(url2)
-    .then(results => {
-      let data = results.body[1];
-      let drinkResults = data.map(value => {
-        return new Drinks(value);
-      });
-      container.push(drinkResults);
-    });
+  if (request.body.filter === 'ingredient') {
+    url += `search.php?i=${request.body.search}`;
 
-    superagent.get(url3)
-    .then(results => {
-      let data = results.body[1];
-      let drinkResults = data.map(value => {
-        return new Drinks(value);
+    superagent.get(url)
+      .then(results => {
+        let data = results.body[1];
+        let drinkResults = data.map(value => {
+          return new Drinks(value);
+        });
+        apiData.push(drinkResults);
+        response.status(200).render('results', { data: container });
       });
-      container.push(drinkResults);
-    });
-    
-    response.status(200).render('results', {data: container});
+  }
+
+
+
+
 }
 
 
 // Constructor
-// function Drinks(data){
-//   this.name = ;
-//   this.description = ;
-//   this.image = ;
-//   this. = ;
+// function Recipe(data){
+//   this.name = data.strDrink;
+//   this.instructions = data.strInstructions;
+//   this.image = data.strDrinkThumb;
+//   this.ingredients = ;
+//   this.measurements = ;
 // }
 
-function Location(data){
+function Location(data) {
   // How will be searching for the location?
   // city? lat and lon? zipcode?
 }
