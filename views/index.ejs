@@ -7,15 +7,28 @@
 <div id="container">
   <%- include('layout/navbar') %>
   <body id="home">
-    <p id="hero"><img src="" alt=""></p>
+    <img id="hero" src="images/bartender.PNG" alt="picture">
     <p id="day">Drink of the day</p>
     <div id="home-info">
       <p></p>
       <p><img src="" alt=""></p>
       <p></p>
     </div>
+    <div class="modal-bg">
+      <div class="modal">
+        <h2>TERMS OF SERVICE</h2>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti aliquam, beatae nesciunt ipsam quo reprehenderit adipisci ratione ducimus ipsa odit corrupti, eius fugiat! Aspernatur in ipsam vitae asperiores atque praesentium.</p>
+        <input type="checkbox" required>
+        <input type="submit" value="submit">
+      </div>
+    </div>
     <%- include('layout/footer') %>
     <script src="app.js"></script>
+    <script>
+      $('#dropdown').on('click', function(){
+        $('#menu').toggle();
+      })
+    </script>
   </body>
 </div>
 </html>
