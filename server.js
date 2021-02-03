@@ -36,6 +36,7 @@ function homeHandler(request, response) {
   // Start code Here
 }
 
+
 function favoritesHandler(request, response) {
   let SQL = `INSERT INTO favorites
             (name, instructions, image, measurements, ingredients)
@@ -51,6 +52,7 @@ function favoritesHandler(request, response) {
     });
 }
 
+
 function testHandler(request, response) {
   // Start code Here
 }
@@ -61,7 +63,6 @@ function searchFormHandler(request, response) {
 
 function resultsHandler(request, response) {
   let url = `https://www.thecocktaildb.com/api/json/v1/1/`;
-
 
   if (request.body.filter === 'name') {
     url += `search.php?s=${request.body.search}`;
@@ -120,8 +121,6 @@ function resultsHandler(request, response) {
   }
 
 
-
-
 }
 
 function detailsHandler(request, response) {
@@ -129,7 +128,6 @@ function detailsHandler(request, response) {
   request.body.ingredients = request.body.ingredients.split(',');
   request.body.measurements = request.body.measurements.split(',');
   response.status(200).render('details', { data: request.body });
-}
 
 
 // Constructor
@@ -140,6 +138,7 @@ function Recipe(data, ingredients, measurements) {
   this.ingredients = ingredients;
   this.measurements = measurements;
 }
+
 
 function Location(data) {
   // How will be searching for the location?
