@@ -16,7 +16,7 @@ app.set('view engine', 'ejs');
 
 // Express middleware
 app.use(express.static('./public'));
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 
 client.on('error', err => {
   throw err;
@@ -27,68 +27,121 @@ app.get('/', homeHandler);
 app.get('/test', testHandler);
 app.get('/searchForm', searchFormHandler);
 app.post('/results', resultsHandler);
+app.post('/details', detailsHandler);
+app.post('/favorites', favoritesHandler);
 
 
 // Handlers
-function homeHandler(request, response){
+function homeHandler(request, response) {
   // Start code Here
 }
 
-function testHandler(request, response){
+function favoritesHandler(request, response) {
+  let SQL = `INSERT INTO favorites
+            (name, instructions, image, measurements, ingredients)
+            VALUES ($1, $2, $3, $4, $5);`;
+
+  let safeValues = [request.body.name, request.body.instructions, request.body.image, request.body.measurements, request.body.ingredients];
+
+  client.query(SQL, safeValues)
+    .then(() => {
+      console.log(`${request.body.name} added to your favorites list!`);
+
+      response.status(200).redirect('/searchForm');
+    });
+}
+
+function testHandler(request, response) {
   // Start code Here
 }
 
-function searchFormHandler(request, response){
+function searchFormHandler(request, response) {
   response.status(200).render('searchForm');
 }
 
-function resultsHandler(request, response){
+function resultsHandler(request, response) {
+  let url = `https://www.thecocktaildb.com/api/json/v1/1/`;
 
-  let url1 = ``;
-  let url2 = ``;
-  let url3 = ``;
-  let apiData = {};
 
-  superagent.get(url1)
-    .then(results => {
-      let data = results.body[1];
-      let drinkResults = data.map(value => {
-        return new Drinks(value);
+  if (request.body.filter === 'name') {
+    url += `search.php?s=${request.body.search}`;
+    let regexIngredients = /strIngredient+/gm;
+    let regexMeasure = /strMeasure+/gm;
+    superagent.get(url)
+      .then(results => {
+        let data = results.body.drinks;
+        let drinkResults = data.map(currentObject => {
+          let ingredients = [];
+          let measurements = [];
+          let x = Object.keys(currentObject);
+          x.forEach(value => {
+            if (value.match(regexIngredients)) {
+              ingredients.push(value);
+            } else if (value.match(regexMeasure)) {
+              measurements.push(value);
+            }
+          });
+
+          let ingredientsList = ingredients.reduce((acc, value) => {
+            if (currentObject[value]) {
+              acc.push(currentObject[value]);
+            }
+            return acc;
+          }, []);
+
+          let measureList = measurements.reduce((acc, value) => {
+            if (currentObject[value]) {
+              acc.push(currentObject[value]);
+            }
+            return acc;
+          }, []);
+          return new Recipe(currentObject, ingredientsList, measureList);
+        });
+
+        response.status(200).render('results', { data: drinkResults });
+
+        // ingredients and measure are arrays
+        console.log(drinkResults);
       });
-      container.push(drinkResults);
-    });
+  }
 
-    superagent.get(url2)
-    .then(results => {
-      let data = results.body[1];
-      let drinkResults = data.map(value => {
-        return new Drinks(value);
-      });
-      container.push(drinkResults);
-    });
+  if (request.body.filter === 'ingredient') {
+    url += `search.php?i=${request.body.search}`;
 
-    superagent.get(url3)
-    .then(results => {
-      let data = results.body[1];
-      let drinkResults = data.map(value => {
-        return new Drinks(value);
+    superagent.get(url)
+      .then(results => {
+        let data = results.body[1];
+        let drinkResults = data.map(value => {
+          return new Drinks(value);
+        });
+        apiData.push(drinkResults);
+        response.status(200).render('results', { data: container });
       });
-      container.push(drinkResults);
-    });
-    
-    response.status(200).render('results', {data: container});
+  }
+
+
+
+
+}
+
+function detailsHandler(request, response) {
+  console.log(request.body.ingredients);
+  request.body.ingredients = request.body.ingredients.split(',');
+  request.body.measurements = request.body.measurements.split(',');
+  response.status(200).render('details', { data: request.body });
 }
 
 
 // Constructor
-// function Drinks(data){
-//   this.name = ;
-//   this.description = ;
-//   this.image = ;
-//   this. = ;
-// }
+function Recipe(data, ingredients, measurements) {
+  this.name = data.strDrink;
+  this.instructions = data.strInstructions;
+  this.image = data.strDrinkThumb;
+  this.ingredients = ingredients;
+  this.measurements = measurements;
+}
 
-function Location(data){
+function Location(data) {
   // How will be searching for the location?
   // city? lat and lon? zipcode?
 }
