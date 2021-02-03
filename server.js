@@ -33,10 +33,10 @@ app.post('/favorites', favoritesHandler);
 
 // Handlers
 function homeHandler(request, response) {
-  // Start code Here
+  response.status(200).render('index');
 }
 
-
+// Adding Favorites To the Table
 function favoritesHandler(request, response) {
   let SQL = `INSERT INTO favorites
             (name, instructions, image, measurements, ingredients)
@@ -57,9 +57,11 @@ function testHandler(request, response) {
   // Start code Here
 }
 
+
 function searchFormHandler(request, response) {
   response.status(200).render('searchForm');
 }
+
 
 function resultsHandler(request, response) {
   let url = `https://www.thecocktaildb.com/api/json/v1/1/`;
@@ -128,7 +130,7 @@ function detailsHandler(request, response) {
   request.body.ingredients = request.body.ingredients.split(',');
   request.body.measurements = request.body.measurements.split(',');
   response.status(200).render('details', { data: request.body });
-
+}
 
 // Constructor
 function Recipe(data, ingredients, measurements) {
@@ -151,4 +153,6 @@ client.connect()
       console.log(`Listening on port: ${PORT}`);
       console.log('Connected to database:', client.connectionParameters.database);
     });
-  }).catch(err => console.log(err));
+  })
+  .catch(err => console.log(err));
+
