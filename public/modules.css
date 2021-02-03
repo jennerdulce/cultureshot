@@ -42,10 +42,20 @@ nav a:link, nav a:active, nav a:visited {
 
 
 footer {
+  margin-top: 130px;
+  display: flex;
+  flex-direction: column;
+}
+
+footer p {
+  margin-bottom: 15px;
+  font-style: italic;
+}
+
+#icons {
   background-color: black;
   margin: auto;
   width: 480px;
-  margin-top: 400px;
   color: white;
   display: flex;
   justify-content: space-around;
@@ -53,7 +63,7 @@ footer {
   text-align: center;
 }
 
-footer a {
+#icons a {
   color: white;
   text-decoration: none;
 }
