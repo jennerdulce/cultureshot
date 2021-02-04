@@ -26,6 +26,8 @@ client.on('error', err => {
 app.get('/', homeHandler);
 app.get('/test', testHandler);
 app.get('/searchForm', searchFormHandler);
+app.get('/history', historyHandler);
+app.get('/jokes', jokesHandler);
 app.post('/results', resultsHandler);
 app.post('/details', detailsHandler);
 app.post('/favorites', favoritesHandler);
@@ -34,6 +36,15 @@ app.post('/favorites', favoritesHandler);
 // Handlers
 function homeHandler(request, response) {
   // Start code Here
+}
+
+function historyHandler(request, response){
+  let url = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?i=vodka'
+  superagent.get(url)
+    .then(results => {
+      let data = results.body.ingredients[0];
+      response.status(200).render('history', { data: data})
+    })
 }
 
 
@@ -128,7 +139,7 @@ function detailsHandler(request, response) {
   request.body.ingredients = request.body.ingredients.split(',');
   request.body.measurements = request.body.measurements.split(',');
   response.status(200).render('details', { data: request.body });
-
+}
 
 // Constructor
 function Recipe(data, ingredients, measurements) {
@@ -144,6 +155,25 @@ function Location(data) {
   // How will be searching for the location?
   // city? lat and lon? zipcode?
 }
+
+
+function jokesHandler(){
+  const jokeEl =document.getElementById('joke');
+  const get_joke = document.getElementById('get_joke');
+  get_joke.addEventListener('click', generateJoke);
+  generateJoke();
+  async function generateJoke(){
+    const jokeRes = await fetch('https://icanhazdadjoke.com/', {
+    headers: {
+      'Accept': 'application/json'
+    }
+  });
+  const joke = await jokeRes.json();
+  console.log(joke);
+  jokeEl.innerHTML = joke.joke;
+}
+}
+
 
 client.connect()
   .then(() => {
