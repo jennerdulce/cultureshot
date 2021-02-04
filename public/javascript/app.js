@@ -11,8 +11,10 @@ $('#submit').on('click', function () {
   $('.modal').toggle();
 });
 
-$('#dropdown').on('click', function () {
-  $('#menu').toggle();
+
+$('#dropdown').on('click', function(){
+  $('#menu').fadeToggle(500);
+
 });
 
 // send to baby page

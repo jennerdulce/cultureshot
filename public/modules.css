@@ -3,13 +3,16 @@
 nav h1 {
   background-color: black;
   font-size: 36px;
-  padding: 20px 10px
+  padding: 20px 10px;
+  font-family: 'Righteous', cursive;
+  color: white;
 }
 
 nav h3 {
   background-color: rgb(202, 202, 202);
   font-size: 16px;
-  padding: 10px 5px
+  padding: 10px 5px;
+  text-decoration: underline;
 }
 
 nav h3:hover {
@@ -19,10 +22,12 @@ nav h3:hover {
 
 #menu {
   background-color: rgb(202, 202, 202);
+  font-family: 'Barlow Semi Condensed', sans-serif;
 }
 
 #menu li {
   padding: 4px 2px ;
+  font-family: 'Barlow Semi Condensed', sans-serif;
 }
 
 #menu a:link, #menu a:active, #menu a:visited {
