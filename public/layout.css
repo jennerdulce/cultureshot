@@ -34,7 +34,7 @@
   justify-content: space-around;
 }
 
-#home-info p {
+#home-info p, img {
   width: 140px;
   height: 140px;
   background-color: rgba(0, 0, 0, 0.3);

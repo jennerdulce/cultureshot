@@ -36,7 +36,30 @@ app.post('/ingredient', ingredientHandler);
 
 // Handlers
 function homeHandler(request, response) {
-  response.status(200).render('index');
+  let url = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
+  let today = new Date();
+  let SQL = 'SELECT * FROM dotd ORDER BY id DESC LIMIT 1 ';
+
+  client.query(SQL)
+    .then(data => {
+      console.log(data.rows);
+      if (data.rows[0].date.toDateString() === today.toDateString()) {
+        response.status(200).render('index', { dotd: data.rows });
+      }
+      else {
+        superagent.get(url)
+          .then(data => {
+
+            let dlyDrinkArr = data.body.drinks.map(obj => new Dotd(obj));
+            const SQL = 'INSERT INTO dotd (name, img) VALUES ($1,$2)';
+            const values = [dlyDrinkArr[0].name, dlyDrinkArr[0].img];
+
+            client.query(SQL, values);
+
+            response.status(200).render('index', { dotd: dlyDrinkArr });
+          });
+      }
+    });
 }
 
 // Adding Favorites To the Table
@@ -211,12 +234,18 @@ function Recipe(data, ingredients, measurements) {
   this.measurements = measurements;
 }
 
+
+// Drink of the Day
+function Dotd(data) {
+  this.name = data.strDrink;
+  this.img = data.strDrinkThumb;
+}
+
 function Ingredient(data) {
   this.name = data.strDrink;
   this.image = data.strDrinkThumb;
   this.id = data.idDrink;
 }
-
 
 function Location(data) {
   // How will be searching for the location?
