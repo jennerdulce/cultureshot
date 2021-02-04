@@ -51,18 +51,6 @@ function homeHandler(request, response) {
       else {
         superagent.get(url)
           .then(data => {
-
-
-function historyHandler(request, response){
-  let url = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?i=vodka'
-  superagent.get(url)
-    .then(results => {
-      let data = results.body.ingredients[0];
-      response.status(200).render('history', { data: data})
-    })
-}
-
-
             let dlyDrinkArr = data.body.drinks.map(obj => new Dotd(obj));
             const SQL = 'INSERT INTO dotd (name, img) VALUES ($1,$2)';
             const values = [dlyDrinkArr[0].name, dlyDrinkArr[0].img];
@@ -74,6 +62,15 @@ function historyHandler(request, response){
           });
       }
     });
+}
+
+function historyHandler(request, response){
+  let url = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?i=vodka'
+  superagent.get(url)
+    .then(results => {
+      let data = results.body.ingredients[0];
+      response.status(200).render('history', { data: data})
+    })
 }
 
 // Adding Favorites To the Table
