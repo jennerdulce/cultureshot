@@ -29,6 +29,8 @@ app.get('/searchForm', searchFormHandler);
 app.post('/results', resultsHandler);
 app.post('/details', detailsHandler);
 app.post('/favorites', favoritesHandler);
+app.get('/favoritesList', favoritesListHandler);
+app.post('/favoriteDetails', favoritesDetailsHandler);
 app.post('/ingredient', ingredientHandler);
 
 
@@ -49,9 +51,34 @@ function favoritesHandler(request, response) {
     .then(() => {
       console.log(`${request.body.name} added to your favorites list!`);
 
-      response.status(200).redirect('/searchForm');
+      response.status(200).redirect('/favoritesList');
     });
 }
+
+function favoritesListHandler(request, response) {
+  let SQL = `SELECT * FROM favorites`;
+
+  client.query(SQL)
+    .then((results) => {
+      // Ingredients and Measurements are returned as STRINGS need to change to arrays
+      console.log(results.rows);
+      let data = results.rows.map(value => {
+        value.ingredients = value.ingredients.split(',');
+        value.measurements = value.measurements.split(',');
+        return value;
+      });
+      console.log(data);
+      response.status(200).render('favoritesList', { data: data });
+    });
+}
+
+function favoritesDetailsHandler(request, response) {
+  // Ingredients and Measurements are returned as STRINGS. Need to change to arrays
+  request.body.ingredients = request.body.ingredients.split(',');
+  request.body.measurements = request.body.measurements.split(',');
+  response.status(200).render('favoritesDetails', { data: request.body });
+}
+
 
 function ingredientHandler(request, response) {
   console.log('========================================', request.body.id);
@@ -169,7 +196,7 @@ function resultsHandler(request, response) {
 }
 
 function detailsHandler(request, response) {
-  console.log(request.body.ingredients);
+  // Ingredients and Measurements are returned as STRINGS. Need to change to arrays
   request.body.ingredients = request.body.ingredients.split(',');
   request.body.measurements = request.body.measurements.split(',');
   response.status(200).render('drinkDetails', { data: request.body });
