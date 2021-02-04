@@ -6,6 +6,7 @@
 
 <div id="container">
   <%- include('layout/navbar') %>
+
   <body id="search-form">
     <h2>Search for a Drink</h2>
     <form action="/results" method="POST">
@@ -17,12 +18,13 @@
       <button>Submit</button>
     </form>
 
-    <form action="/location">
+    <!-- <form action="/location">
       <input type="text" id="location" name="location" placeholder="Enter a City">
       <button>Submit</button>
-    </form>
+    </form> -->
     <%- include('layout/footer') %>
     <script src="app.js"></script>
+    <%- include('layout/js') %>
   </body>
 </div>
 </html>

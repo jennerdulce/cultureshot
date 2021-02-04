@@ -23,16 +23,12 @@
       </ul>
     </div>
     <p><%= data.instructions %></p>
-    <form action="/favorites" method="POST">
-      <input type="hidden" name="name" value="<%= data.name %>">
-      <input type="hidden" name="instructions" value="<%= data.instructions %>">
-      <input type="hidden" name="image" value="<%= data.image %>">
-      <input type="hidden" name="ingredients" value="<%= data.ingredients %>">
-      <input type="hidden" name="measurements" value="<%= data.measurements %>">
-      <button>Add to Favorites</button>
+    <form action="/favoritesList">
+      <input type="submit" value="Back">
     </form>
     <%- include('layout/footer') %>
     <script src="app.js"></script>
+    <%- include('layout/js') %>
   </body>
 </div>
 
