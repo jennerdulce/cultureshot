@@ -92,6 +92,7 @@ footer p {
   justify-content: space-around;
   align-items: center;
   flex-direction: column;
+  /* visibility: hidden; */
 }
 
 .modal input[type="submit"] {
@@ -101,4 +102,9 @@ footer p {
   border: none;
   font-family: sans-serif;
   cursor: pointer;
+  /* visibility: hidden; */
+}
+
+.hide-modal {
+  display: none;
 }

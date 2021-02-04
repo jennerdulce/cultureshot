@@ -8,10 +8,11 @@
   <%- include('layout/navbar') %>
 
   <body id="results">
+    <h1>Favorites List</h1>
     <% data.forEach(value => { %>
     <h2><%= value.name %></h2>
     <p><img src="<%= value.image %>" alt="Picture of Cocktail"></p>
-    <form action="/details" method="POST">
+    <form action="/favoriteDetails" method="POST">
       <input type="hidden" name="name" value="<%= value.name %>">
       <input type="hidden" name="instructions" value="<%= value.instructions %>">
       <input type="hidden" name="image" value="<%= value.image %>">
