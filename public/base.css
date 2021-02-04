@@ -15,6 +15,9 @@ body {
   text-align: center;
   width: 480px;
   margin: auto;
-  background-color: rgb(255, 95, 87);
+  background-color: rgb(202, 202, 202);
+  background-image: url('images/background.jpg');
+  background-size: contain;
+
 }
 

@@ -12,7 +12,7 @@ $('#submit').on('click', function() {
 });
 
 $('#dropdown').on('click', function(){
-  $('#menu').toggle();
+  $('#menu').fadeToggle(500);
 });
 
 // send to baby page
