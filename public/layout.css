@@ -16,6 +16,25 @@
   width: 100px
 }
 
+/* DAD JOKE */
+.jokebox{
+  background-color: bisque;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1),0 6px 6px rgba(0, 0, 0, 0.1);
+  padding : 50px 20px;
+  max-width: 100%;
+  text-align: center;
+  width: 400px;
+  height: 400px;
+
+}
+
+.jokebox h2{
+  margin: 0;
+  letter-spacing: 2px;
+  opacity: 0.5;
+}
+
 /* RESULTS */
 #results img {
   width: 100px
@@ -34,7 +53,7 @@
   justify-content: space-around;
 }
 
-#home-info p {
+#home-info p, img {
   width: 140px;
   height: 140px;
   background-color: rgba(0, 0, 0, 0.3);
@@ -43,3 +62,4 @@
 #day {
   margin: 50px 0px 15px 0px;
 }
+

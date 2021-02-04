@@ -26,15 +26,54 @@ client.on('error', err => {
 app.get('/', homeHandler);
 app.get('/test', testHandler);
 app.get('/searchForm', searchFormHandler);
+app.get('/history', historyHandler);
+app.get('/jokes', jokesHandler);
 app.post('/results', resultsHandler);
 app.post('/details', detailsHandler);
 app.post('/favorites', favoritesHandler);
+app.get('/favoritesList', favoritesListHandler);
+app.post('/favoriteDetails', favoritesDetailsHandler);
 app.post('/ingredient', ingredientHandler);
 
 
 // Handlers
 function homeHandler(request, response) {
-  response.status(200).render('index');
+  let url = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
+  let today = new Date();
+  let SQL = 'SELECT * FROM dotd ORDER BY id DESC LIMIT 1 ';
+
+  client.query(SQL)
+    .then(data => {
+      console.log(data.rows);
+      if (data.rows[0].date.toDateString() === today.toDateString()) {
+        response.status(200).render('index', { dotd: data.rows });
+      }
+      else {
+        superagent.get(url)
+          .then(data => {
+
+
+function historyHandler(request, response){
+  let url = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?i=vodka'
+  superagent.get(url)
+    .then(results => {
+      let data = results.body.ingredients[0];
+      response.status(200).render('history', { data: data})
+    })
+}
+
+
+            let dlyDrinkArr = data.body.drinks.map(obj => new Dotd(obj));
+            const SQL = 'INSERT INTO dotd (name, img) VALUES ($1,$2)';
+            const values = [dlyDrinkArr[0].name, dlyDrinkArr[0].img];
+
+
+            client.query(SQL, values);
+
+            response.status(200).render('index', { dotd: dlyDrinkArr });
+          });
+      }
+    });
 }
 
 // Adding Favorites To the Table
@@ -49,9 +88,34 @@ function favoritesHandler(request, response) {
     .then(() => {
       console.log(`${request.body.name} added to your favorites list!`);
 
-      response.status(200).redirect('/searchForm');
+      response.status(200).redirect('/favoritesList');
     });
 }
+
+function favoritesListHandler(request, response) {
+  let SQL = `SELECT * FROM favorites`;
+
+  client.query(SQL)
+    .then((results) => {
+      // Ingredients and Measurements are returned as STRINGS need to change to arrays
+      console.log(results.rows);
+      let data = results.rows.map(value => {
+        value.ingredients = value.ingredients.split(',');
+        value.measurements = value.measurements.split(',');
+        return value;
+      });
+      console.log(data);
+      response.status(200).render('favoritesList', { data: data });
+    });
+}
+
+function favoritesDetailsHandler(request, response) {
+  // Ingredients and Measurements are returned as STRINGS. Need to change to arrays
+  request.body.ingredients = request.body.ingredients.split(',');
+  request.body.measurements = request.body.measurements.split(',');
+  response.status(200).render('favoritesDetails', { data: request.body });
+}
+
 
 function ingredientHandler(request, response) {
   console.log('========================================', request.body.id);
@@ -169,10 +233,11 @@ function resultsHandler(request, response) {
 }
 
 function detailsHandler(request, response) {
-  console.log(request.body.ingredients);
+  // Ingredients and Measurements are returned as STRINGS. Need to change to arrays
   request.body.ingredients = request.body.ingredients.split(',');
   request.body.measurements = request.body.measurements.split(',');
   response.status(200).render('drinkDetails', { data: request.body });
+
 }
 
 // Constructor
@@ -184,17 +249,42 @@ function Recipe(data, ingredients, measurements) {
   this.measurements = measurements;
 }
 
+
+// Drink of the Day
+function Dotd(data) {
+  this.name = data.strDrink;
+  this.img = data.strDrinkThumb;
+}
+
 function Ingredient(data) {
   this.name = data.strDrink;
   this.image = data.strDrinkThumb;
   this.id = data.idDrink;
 }
 
-
 function Location(data) {
   // How will be searching for the location?
   // city? lat and lon? zipcode?
 }
+
+
+function jokesHandler(){
+  const jokeEl =document.getElementById('joke');
+  const get_joke = document.getElementById('get_joke');
+  get_joke.addEventListener('click', generateJoke);
+  generateJoke();
+  async function generateJoke(){
+    const jokeRes = await fetch('https://icanhazdadjoke.com/', {
+    headers: {
+      'Accept': 'application/json'
+    }
+  });
+  const joke = await jokeRes.json();
+  console.log(joke);
+  jokeEl.innerHTML = joke.joke;
+}
+}
+
 
 client.connect()
   .then(() => {
@@ -202,6 +292,7 @@ client.connect()
       console.log(`Listening on port: ${PORT}`);
       console.log('Connected to database:', client.connectionParameters.database);
     });
+
   })
   .catch(err => console.log(err));
 
