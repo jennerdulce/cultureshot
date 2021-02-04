@@ -8,10 +8,14 @@
   <%- include('layout/navbar') %>
   <body id="home">
     <p id="hero"><img src="" alt=""></p>
-    <p id="day">Drink of the day</p>
+    <p id="day">
+      Drink of the day <br> 
+      <%= dotd[0].name %>
+      
+    </p>
     <div id="home-info">
       <p></p>
-      <p><img src="" alt=""></p>
+      <p><img src="<%= dotd[0].img %>" alt=""></p>
       <p></p>
     </div>
     <%- include('layout/footer') %>
