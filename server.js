@@ -26,6 +26,8 @@ client.on('error', err => {
 app.get('/', homeHandler);
 app.get('/test', testHandler);
 app.get('/searchForm', searchFormHandler);
+app.get('/history', historyHandler);
+app.get('/jokes', jokesHandler);
 app.post('/results', resultsHandler);
 app.post('/details', detailsHandler);
 app.post('/favorites', favoritesHandler);
@@ -50,9 +52,21 @@ function homeHandler(request, response) {
         superagent.get(url)
           .then(data => {
 
+
+function historyHandler(request, response){
+  let url = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?i=vodka'
+  superagent.get(url)
+    .then(results => {
+      let data = results.body.ingredients[0];
+      response.status(200).render('history', { data: data})
+    })
+}
+
+
             let dlyDrinkArr = data.body.drinks.map(obj => new Dotd(obj));
             const SQL = 'INSERT INTO dotd (name, img) VALUES ($1,$2)';
             const values = [dlyDrinkArr[0].name, dlyDrinkArr[0].img];
+
 
             client.query(SQL, values);
 
@@ -223,6 +237,7 @@ function detailsHandler(request, response) {
   request.body.ingredients = request.body.ingredients.split(',');
   request.body.measurements = request.body.measurements.split(',');
   response.status(200).render('drinkDetails', { data: request.body });
+
 }
 
 // Constructor
@@ -252,12 +267,32 @@ function Location(data) {
   // city? lat and lon? zipcode?
 }
 
+
+function jokesHandler(){
+  const jokeEl =document.getElementById('joke');
+  const get_joke = document.getElementById('get_joke');
+  get_joke.addEventListener('click', generateJoke);
+  generateJoke();
+  async function generateJoke(){
+    const jokeRes = await fetch('https://icanhazdadjoke.com/', {
+    headers: {
+      'Accept': 'application/json'
+    }
+  });
+  const joke = await jokeRes.json();
+  console.log(joke);
+  jokeEl.innerHTML = joke.joke;
+}
+}
+
+
 client.connect()
   .then(() => {
     app.listen(PORT, () => {
       console.log(`Listening on port: ${PORT}`);
       console.log('Connected to database:', client.connectionParameters.database);
     });
+
   })
   .catch(err => console.log(err));
 
