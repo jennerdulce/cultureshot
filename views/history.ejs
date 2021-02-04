@@ -1,15 +1,25 @@
 <html lang="en">
+
 <head>
   <%- include('layout/head') %>
 </head>
 <div id="container">
   <%- include('layout/navbar') %>
-  <body id="history">
-    <h2><%= data.strIngredient %></h2>
-    <p><%= data.strDescription %></p>
+
+
+    <body id="history">
+      <h2>
+        <%= data.strIngredient %>
+      </h2>
+      <p>
+        <%= data.strDescription %>
+      </p>
+      <form action="/historyForm" method="GET"> <button>Search Again</button>
+      </form>
 
     <%- include('layout/footer') %>
-    <script src="app.js"></script>
+    <script src="javascript/app.js"></script>
   </body>
 </div>
+
 </html>

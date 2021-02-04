@@ -6,6 +6,7 @@ const express = require('express');
 const pg = require('pg');
 const superagent = require('superagent');
 const methodOverride = require('method-override');
+const { response } = require('express');
 
 // Start App
 const app = express();
@@ -26,8 +27,9 @@ client.on('error', err => {
 app.get('/', homeHandler);
 app.get('/test', testHandler);
 app.get('/searchForm', searchFormHandler);
-app.get('/history', historyHandler);
+app.post('/history', historyHandler);
 app.get('/jokes', jokesHandler);
+app.get('/historyform', historyFormHandler);
 app.post('/results', resultsHandler);
 app.post('/details', detailsHandler);
 app.post('/favorites', favoritesHandler);
@@ -55,7 +57,6 @@ function homeHandler(request, response) {
             const SQL = 'INSERT INTO dotd (name, img) VALUES ($1,$2)';
             const values = [dlyDrinkArr[0].name, dlyDrinkArr[0].img];
 
-
             client.query(SQL, values);
 
             response.status(200).render('index', { dotd: dlyDrinkArr });
@@ -64,8 +65,12 @@ function homeHandler(request, response) {
     });
 }
 
+function historyFormHandler(request, response){
+  response.status(200).render('historyForm');
+}
+
 function historyHandler(request, response){
-  let url = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?i=vodka'
+  let url = `https://www.thecocktaildb.com/api/json/v1/1/search.php?i=${request.body.search}`;
   superagent.get(url)
     .then(results => {
       let data = results.body.ingredients[0];
@@ -265,21 +270,8 @@ function Location(data) {
 }
 
 
-function jokesHandler(){
-  const jokeEl =document.getElementById('joke');
-  const get_joke = document.getElementById('get_joke');
-  get_joke.addEventListener('click', generateJoke);
-  generateJoke();
-  async function generateJoke(){
-    const jokeRes = await fetch('https://icanhazdadjoke.com/', {
-    headers: {
-      'Accept': 'application/json'
-    }
-  });
-  const joke = await jokeRes.json();
-  console.log(joke);
-  jokeEl.innerHTML = joke.joke;
-}
+function jokesHandler(request, response){
+  response.status(200).render('jokes');
 }
 
 
