@@ -59,6 +59,10 @@
   background-color: rgba(0, 0, 0, 0.3);
 }
 
+#qr-code {
+  margin-top: 50px;
+}
+
 #day {
   margin: 50px 0px 15px 0px;
 }
