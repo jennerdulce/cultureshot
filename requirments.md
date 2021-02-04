@@ -12,7 +12,9 @@
 
 - Sharing new drinks and knowledge with your friends and introducing them to new ones as well. Redefining the phrase of being ’thirsty for knowledge’. Benefit local shops/market
 
+
 ## What will your product do
+
 
 - List alcohol types
 - View local businesses that may provide cocktails the user searched for

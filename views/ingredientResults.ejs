@@ -1,0 +1,26 @@
+<html lang="en">
+
+<head>
+  <%- include('layout/head') %>
+</head>
+
+<div id="container">
+  <%- include('layout/navbar') %>
+
+  <body id="ingredient">
+    <% data.forEach(value => { %>
+    <h2><%= value.name %></h2>
+    <p><img src="<%= value.image %>" alt="Picture of Cocktail"></p>
+    <form action="/ingredient" method="POST">
+      <input type="hidden" name="id" value="<%= value.id %>">
+      <p><%= value.id %></p>
+      <button>View Details</button>
+    </form>
+    <% }) %>
+    <%- include('layout/footer') %>
+    <script src="app.js"></script>
+    <%- include('layout/js') %>
+  </body>
+</div>
+
+</html>
