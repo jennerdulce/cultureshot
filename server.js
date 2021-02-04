@@ -55,7 +55,6 @@ function homeHandler(request, response) {
             const SQL = 'INSERT INTO dotd (name, img) VALUES ($1,$2)';
             const values = [dlyDrinkArr[0].name, dlyDrinkArr[0].img];
 
-
             client.query(SQL, values);
 
             response.status(200).render('index', { dotd: dlyDrinkArr });
