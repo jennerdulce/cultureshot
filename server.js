@@ -6,7 +6,6 @@ const express = require('express');
 const pg = require('pg');
 const superagent = require('superagent');
 const methodOverride = require('method-override');
-const { response } = require('express');
 
 // Start App
 const app = express();
@@ -29,6 +28,7 @@ app.get('/test', testHandler);
 app.get('/searchForm', searchFormHandler);
 app.post('/history', historyHandler);
 app.get('/jokes', jokesHandler);
+app.get('/fivePm', fivePmHandler);
 app.get('/historyform', historyFormHandler);
 app.post('/delete/:name', deleteHandler);
 app.post('/results', resultsHandler);
@@ -276,9 +276,9 @@ function Ingredient(data) {
   this.id = data.idDrink;
 }
 
-function Location(data) {
-  // How will be searching for the location?
-  // city? lat and lon? zipcode?
+// 5'0clock somewhere
+function fivePmHandler(request, response) {
+  response.status(200).render('fivePm', country: '');
 }
 
 

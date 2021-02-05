@@ -12,7 +12,7 @@ $('#submit').on('click', function () {
 });
 
 
-$('#dropdown').on('click', function(){
+$('#hamburger').on('click', function(){
   $('#menu').fadeToggle(500);
 
 });
@@ -42,3 +42,41 @@ async function generateJoke() {
   console.log(joke);
   jokeEl.innerHTML = joke.joke;
 }
+
+// 5 0'clock somewhere function
+const fivePm = 24 - moment().format('H');
+const placeRes = document.getElementById('place');
+let render = function (num){
+  console.log(num);
+  $('#place').innerHTML(place[num]);};
+
+  
+
+  // render(fivePm);
+
+let place = [
+  'U.S. Minor Outlying Islands',
+  'American Samoa',
+  'Hawaii',
+  'French Polynesia',
+  'Alaska',
+  'California',
+  'Colorado',
+  'Illinois',
+  'New York',
+  'Nova Scotia',
+  'Nuuk, Greenland',
+  'Cape Verde',
+  'Iceland',
+  'England',
+  'Germany',
+  'Finland',
+  'Armenia',
+  'Uzbekistan',
+  'Bhutan',
+  'Thailand',
+  'China',
+  'Japan',
+  'Guam',
+  'New Zealand'
+];
