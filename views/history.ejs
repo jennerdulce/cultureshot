@@ -11,10 +11,11 @@
       <h2>
         <%= data.strIngredient %>
       </h2>
-      <p>
+      <p id="history-info">
         <%= data.strDescription %>
       </p>
-      <form action="/historyForm" method="GET"> <button>Search Again</button>
+      <form action="/historyForm" method="GET"> 
+        <button class="button">Search Again</button>
       </form>
 
     <%- include('layout/footer') %>

@@ -6,7 +6,6 @@ const express = require('express');
 const pg = require('pg');
 const superagent = require('superagent');
 const methodOverride = require('method-override');
-const { response } = require('express');
 
 // Start App
 const app = express();

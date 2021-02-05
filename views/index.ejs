@@ -14,18 +14,17 @@
       <%= dotd[0].name %>
     </p>
     <div id="home-info">
-      <p></p>
+      <!-- <p></p> -->
       <p><img src="<%= dotd[0].img %>" alt=""></p>
-      <p></p>
+      <!-- <p></p> -->
     </div>
 
     <div id="qr-code">
-      <img src="https://qrtag.net/api/qr.png" alt="qrtag">
+     <p><img id="qr-img" src="https://qrtag.net/api/qr.png" alt="qrtag"></p>
     </div>
 
     <%- include('layout/footer') %>
     <script src="javascript/app.js"></script>
-    <!-- <%- include('layout/js') %> -->
   </body>
 </div>
 </html>

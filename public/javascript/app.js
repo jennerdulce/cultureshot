@@ -12,7 +12,7 @@ $('#submit').on('click', function () {
 });
 
 
-$('#dropdown').on('click', function(){
+$('#hamburger').on('click', function(){
   $('#menu').fadeToggle(500);
 
 });

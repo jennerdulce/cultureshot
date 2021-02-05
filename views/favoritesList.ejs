@@ -11,18 +11,22 @@
     <h1>Favorites List</h1>
     <% data.forEach(value => { %>
     <h2><%= value.name %></h2>
-    <p><img src="<%= value.image %>" alt="Picture of Cocktail"></p>
-    <form action="/favoriteDetails" method="POST">
-      <input type="hidden" name="name" value="<%= value.name %>">
-      <input type="hidden" name="instructions" value="<%= value.instructions %>">
-      <input type="hidden" name="image" value="<%= value.image %>">
-      <input type="hidden" name="ingredients" value="<%= value.ingredients %>">
-      <input type="hidden" name="measurements" value="<%= value.measurements %>">
-      <button>View Details</button>
-    </form>
-    <form action="/delete/<%= value.name %>" method="POST">
-      <button>View Details</button>
-    </form>
+    <div id="home-info">
+      <p><img src="<%= value.image %>" alt="Picture of Cocktail"></p>
+    </div>
+    <div id="buttons">
+      <form action="/favoriteDetails" method="POST">
+        <input type="hidden" name="name" value="<%= value.name %>">
+        <input type="hidden" name="instructions" value="<%= value.instructions %>">
+        <input type="hidden" name="image" value="<%= value.image %>">
+        <input type="hidden" name="ingredients" value="<%= value.ingredients %>">
+        <input type="hidden" name="measurements" value="<%= value.measurements %>">
+        <button class="button">View Recipe</button>
+      </form>
+      <form action="/delete/<%= value.name %>" method="POST">
+        <button class="button">Delete</button>
+      </form>
+    </div>
     <% }) %>
     <%- include('layout/footer') %>
     <script src="javascript/app.js"></script>
