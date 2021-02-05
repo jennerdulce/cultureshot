@@ -10,15 +10,16 @@
   <body id="ingredient">
     <% data.forEach(value => { %>
     <h2><%= value.name %></h2>
-    <p><img src="<%= value.image %>" alt="Picture of Cocktail"></p>
+    <div id="home-info">
+      <p><img src="<%= value.image %>" alt="Picture of Cocktail"></p>
+    </div>
     <form action="/ingredient" method="POST">
       <input type="hidden" name="id" value="<%= value.id %>">
-      <button>View Details</button>
+      <button class="button">View Details</button>
     </form>
     <% }) %>
     <%- include('layout/footer') %>
     <script src="javascript/app.js"></script>
-    <!-- <%- include('layout/js') %> -->
   </body>
 </div>
 

@@ -15,24 +15,43 @@ nav h3 {
   text-decoration: underline;
 }
 
+nav h4 {
+  color: white;
+  background-color: black;
+  position: absolute;
+  font-size: 18px;
+  right: 20px;
+  top: 15px
+}
+
+nav h4:hover {
+  cursor: pointer;
+}
+
 nav h3:hover {
   text-decoration: underline;
   cursor: pointer
 }
 
 #menu {
-  background-color: rgb(202, 202, 202);
+  position: absolute;
+  color: white;
   font-family: 'Barlow Semi Condensed', sans-serif;
+  width: 100%;
+  height: 100vh
 }
 
 #menu li {
-  padding: 4px 2px ;
+  
+  background-color: black;
   font-family: 'Barlow Semi Condensed', sans-serif;
+  width:100%;
+  padding: 4px 0px
 }
 
 #menu a:link, #menu a:active, #menu a:visited {
  text-decoration: none;
- color: black
+ color: white;
 }
 
 nav a:link, nav a:active, nav a:visited {
@@ -55,6 +74,7 @@ footer {
 footer p {
   margin-bottom: 15px;
   font-style: italic;
+  background-color: white;
 }
 
 #icons {
@@ -76,7 +96,7 @@ footer p {
 
 /* MODAL */
 
-.modal-bg {
+.modal-bg{ 
   position: fixed;
   width: 100%;
   height: 100vh;
@@ -91,8 +111,8 @@ footer p {
 
 .modal {
   background-color:  white;
-  width: 30%;
-  height: 30%;
+  width: 80%;
+  height: 80%;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -110,6 +130,4 @@ footer p {
   /* visibility: hidden; */
 }
 
-.hide-modal {
-  display: none;
-}
+

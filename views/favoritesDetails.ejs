@@ -9,8 +9,10 @@
 
   <body id="details">
     <h2><%= data.name %></h2>
-    <p><img src="<%= data.image %>" alt="Picture of Cocktail"></p>
-    <div id="">
+    <div id="home-info">
+      <p><img src="<%= data.image %>" alt="Picture of Cocktail"></p>
+    </div>
+    <div id="lists">
       <ul>
         <% data.ingredients.forEach((value, index) => { %>
         <li><%= value %></li>
@@ -24,11 +26,10 @@
     </div>
     <p><%= data.instructions %></p>
     <form action="/favoritesList">
-      <input type="submit" value="Back">
+      <input class="button" type="submit" value="Back">
     </form>
     <%- include('layout/footer') %>
     <script src="javascript/app.js"></script>
-    <!-- <%- include('layout/js') %> -->
   </body>
 </div>
 

@@ -6,7 +6,6 @@ const express = require('express');
 const pg = require('pg');
 const superagent = require('superagent');
 const methodOverride = require('method-override');
-const { response } = require('express');
 
 // Start App
 const app = express();
@@ -31,6 +30,7 @@ app.post('/history', historyHandler);
 app.get('/jokes', jokesHandler);
 app.get('/fivePm', fivePmHandler);
 app.get('/historyform', historyFormHandler);
+app.post('/delete/:name', deleteHandler);
 app.post('/results', resultsHandler);
 app.post('/details', detailsHandler);
 app.post('/favorites', favoritesHandler);
@@ -75,8 +75,19 @@ function historyHandler(request, response){
   superagent.get(url)
     .then(results => {
       let data = results.body.ingredients[0];
-      response.status(200).render('history', { data: data})
-    })
+      response.status(200).render('history', { data: data});
+    });
+}
+
+// Delete
+function deleteHandler(request, response) {
+  let SQL = `DELETE FROM favorites WHERE name = $1`;
+  let safeValues = [request.params.name];
+
+  client.query(SQL, safeValues)
+    .then(() => {
+      response.status(200).redirect('/favoritesList');
+    });
 }
 
 // Adding Favorites To the Table
@@ -99,7 +110,7 @@ function favoritesListHandler(request, response) {
   let SQL = `SELECT * FROM favorites`;
 
   client.query(SQL)
-    .then((results) => {
+    .then(results => {
       // Ingredients and Measurements are returned as STRINGS need to change to arrays
       console.log(results.rows);
       let data = results.rows.map(value => {
@@ -108,7 +119,7 @@ function favoritesListHandler(request, response) {
         return value;
       });
       console.log(data);
-      response.status(200).render('favoritesList', { data: data });
+      response.status(200).render('favoritesList', { data: data } );
     });
 }
 
