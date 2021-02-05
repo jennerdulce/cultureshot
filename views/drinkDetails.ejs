@@ -9,15 +9,18 @@
 
   <body id="details">
     <h2><%= data.name %></h2>
-    <p><img src="<%= data.image %>" alt="Picture of Cocktail"></p>
-    <div id="">
+    <div id="home-info">
+      <p><img src="<%= data.image %>" alt="Picture of Cocktail"></p>
+    </div>
+    
+    <div id="lists">
       <ul>
-        <% data.ingredients.forEach((value, index) => { %>
+        <% data.measurements.forEach((value, index) => { %>
         <li><%= value %></li>
         <% }) %>
       </ul>
       <ul>
-        <% data.measurements.forEach((value, index) => { %>
+        <% data.ingredients.forEach((value, index) => { %>
         <li><%= value %></li>
         <% }) %>
       </ul>
@@ -33,7 +36,6 @@
     </form>
     <%- include('layout/footer') %>
     <script src="javascript/app.js"></script>
-    <!-- <%- include('layout/js') %> -->
   </body>
 </div>
 

@@ -3,13 +3,21 @@ body {
   max-width: 767px;
   min-width: 480px;
   margin: auto;
-  margin-top: 100px;
   font-family: 'Oswald', sans-serif;
   color: rgba(28, 28, 28, 0.793);
 }
 
+form {
+  margin: auto;
+}
+body h2 {
+  font-family: 'Bebas Neue', cursive;
+}
+
+
 
 #container {
+  position: relative;
   display: flex;
   flex-direction: column;
   text-align: center;
