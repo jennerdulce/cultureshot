@@ -72,9 +72,12 @@ footer {
 }
 
 footer p {
+  margin: auto;
   margin-bottom: 15px;
   font-style: italic;
   background-color: white;
+  width: 90%;
+  box-shadow: none;
 }
 
 #icons {
