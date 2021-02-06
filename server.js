@@ -6,6 +6,7 @@ const express = require('express');
 const pg = require('pg');
 const superagent = require('superagent');
 const methodOverride = require('method-override');
+const { request } = require('express');
 
 // Start App
 const app = express();
@@ -28,7 +29,7 @@ app.get('/test', testHandler);
 app.get('/searchForm', searchFormHandler);
 app.post('/history', historyHandler);
 app.get('/jokes', jokesHandler);
-app.get('/fivePm', fivePmHandler);
+// app.get('/fivePm', fivePmHandler);
 app.get('/historyform', historyFormHandler);
 app.post('/delete/:name', deleteHandler);
 app.post('/results', resultsHandler);
@@ -37,9 +38,56 @@ app.post('/favorites', favoritesHandler);
 app.get('/favoritesList', favoritesListHandler);
 app.post('/favoriteDetails', favoritesDetailsHandler);
 app.post('/ingredient', ingredientHandler);
-
+app.post('/frontpageDetails', frontpageDetailsHandler);
 
 // Handlers
+function frontpageDetailsHandler(request, response){
+  let url = `https://www.thecocktaildb.com/api/json/v1/1/`;
+
+  if (request.body.filter === 'name') {
+    url += `search.php?s=${request.body.search}`;
+    let regexIngredients = /strIngredient+/gm;
+    let regexMeasure = /strMeasure+/gm;
+
+    superagent.get(url)
+      .then(results => {
+        let data = results.body.drinks;
+        let drinkResults = data.map(currentObject => {
+          let ingredients = [];
+          let measurements = [];
+          let x = Object.keys(currentObject);
+          x.forEach(value => {
+            if (value.match(regexIngredients)) {
+              ingredients.push(value);
+            } else if (value.match(regexMeasure)) {
+              measurements.push(value);
+            }
+          });
+
+          let ingredientsList = ingredients.reduce((acc, value) => {
+            if (currentObject[value]) {
+              acc.push(currentObject[value]);
+            }
+            return acc;
+          }, []);
+
+          let measureList = measurements.reduce((acc, value) => {
+            if (currentObject[value]) {
+              acc.push(currentObject[value]);
+            }
+            return acc;
+          }, []);
+          return new Recipe(currentObject, ingredientsList, measureList);
+        });
+
+        response.status(200).render('frontpageResults', { data: drinkResults });
+
+        // ingredients and measure are arrays
+        console.log(drinkResults);
+      });
+  }
+}
+
 function homeHandler(request, response) {
   let url = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
   let today = new Date();
@@ -47,7 +95,6 @@ function homeHandler(request, response) {
 
   client.query(SQL)
     .then(data => {
-      console.log(data.rows);
       if (data.rows[0].date.toDateString() === today.toDateString()) {
         response.status(200).render('index', { dotd: data.rows });
       }
@@ -191,6 +238,7 @@ function resultsHandler(request, response) {
     url += `search.php?s=${request.body.search}`;
     let regexIngredients = /strIngredient+/gm;
     let regexMeasure = /strMeasure+/gm;
+
     superagent.get(url)
       .then(results => {
         let data = results.body.drinks;
@@ -246,8 +294,13 @@ function resultsHandler(request, response) {
 
 }
 
+function jokesHandler(request, response){
+  response.status(200).render('jokes');
+}
+
 function detailsHandler(request, response) {
   // Ingredients and Measurements are returned as STRINGS. Need to change to arrays
+  console.log(request.body)
   request.body.ingredients = request.body.ingredients.split(',');
   request.body.measurements = request.body.measurements.split(',');
   response.status(200).render('drinkDetails', { data: request.body });
@@ -263,7 +316,6 @@ function Recipe(data, ingredients, measurements) {
   this.measurements = measurements;
 }
 
-
 // Drink of the Day
 function Dotd(data) {
   this.name = data.strDrink;
@@ -275,17 +327,6 @@ function Ingredient(data) {
   this.image = data.strDrinkThumb;
   this.id = data.idDrink;
 }
-
-// 5'0clock somewhere
-function fivePmHandler(request, response) {
-  response.status(200).render('fivePm', country: '');
-}
-
-
-function jokesHandler(request, response){
-  response.status(200).render('jokes');
-}
-
 
 client.connect()
   .then(() => {

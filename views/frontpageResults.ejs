@@ -1,0 +1,42 @@
+<html lang="en">
+
+<head>
+  <%- include('layout/head') %>
+</head>
+
+<div id="container">
+  <%- include('layout/navbar') %>
+
+  <body id="details">
+    <h2><%= data[0].name %></h2>
+    <div id="home-info">
+      <p><img src="<%= data[0].image %>" alt="Picture of Cocktail"></p>
+    </div>
+    
+    <div id="lists">
+      <ul>
+        <% data[0].measurements.forEach((value, index) => { %>
+        <li><%= value %></li>
+        <% }) %>
+      </ul>
+      <ul>
+        <% data[0].ingredients.forEach((value, index) => { %>
+        <li><%= value %></li>
+        <% }) %>
+      </ul>
+    </div>
+    <p><%= data[0].instructions %></p>
+    <form action="/favorites" method="POST">
+      <input type="hidden" name="name" value="<%= data[0].name %>">
+      <input type="hidden" name="instructions" value="<%= data[0].instructions %>">
+      <input type="hidden" name="image" value="<%= data[0].image %>">
+      <input type="hidden" name="ingredients" value="<%= data[0].ingredients %>">
+      <input type="hidden" name="measurements" value="<%= data[0].measurements %>">
+      <button class="button">Add to Favorites</button>
+    </form>
+    <%- include('layout/footer') %>
+    <script src="javascript/app.js"></script>
+  </body>
+</div>
+
+</html>
