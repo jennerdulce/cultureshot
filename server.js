@@ -27,8 +27,10 @@ app.get('/', homeHandler);
 app.get('/test', testHandler);
 app.get('/searchForm', searchFormHandler);
 app.post('/history', historyHandler);
+app.get('/aboutus', aboutusHandler);
+app.post('/aboutusFavorites', aboutusFavorites);
 app.get('/jokes', jokesHandler);
-app.get('/fivePm', fivePmHandler);
+// app.get('/fivePm', fivePmHandler);
 app.get('/historyform', historyFormHandler);
 app.post('/delete/:name', deleteHandler);
 app.post('/results', resultsHandler);
@@ -66,16 +68,64 @@ function homeHandler(request, response) {
     });
 }
 
-function historyFormHandler(request, response){
+function aboutusFavorites(request, response) {
+  let url = `https://www.thecocktaildb.com/api/json/v1/1/`;
+  url += `search.php?s=${request.body.search}`;
+  let regexIngredients = /strIngredient+/gm;
+  let regexMeasure = /strMeasure+/gm;
+  superagent.get(url)
+    .then(results => {
+      let data = results.body.drinks;
+      let drinkResults = data.map(currentObject => {
+        let ingredients = [];
+        let measurements = [];
+        let x = Object.keys(currentObject);
+        x.forEach(value => {
+          if (value.match(regexIngredients)) {
+            ingredients.push(value);
+          } else if (value.match(regexMeasure)) {
+            measurements.push(value);
+          }
+        });
+
+        let ingredientsList = ingredients.reduce((acc, value) => {
+          if (currentObject[value]) {
+            acc.push(currentObject[value]);
+          }
+          return acc;
+        }, []);
+
+        let measureList = measurements.reduce((acc, value) => {
+          if (currentObject[value]) {
+            acc.push(currentObject[value]);
+          }
+          return acc;
+        }, []);
+        return new Recipe(currentObject, ingredientsList, measureList);
+      });
+
+      response.status(200).render('drinkDetails', { data: drinkResults[0] });
+
+
+    });
+}
+
+function aboutusHandler(resquest, response) {
+
+  response.status(200).render('aboutus');
+}
+
+
+function historyFormHandler(request, response) {
   response.status(200).render('historyForm');
 }
 
-function historyHandler(request, response){
+function historyHandler(request, response) {
   let url = `https://www.thecocktaildb.com/api/json/v1/1/search.php?i=${request.body.search}`;
   superagent.get(url)
     .then(results => {
       let data = results.body.ingredients[0];
-      response.status(200).render('history', { data: data});
+      response.status(200).render('history', { data: data });
     });
 }
 
@@ -119,7 +169,7 @@ function favoritesListHandler(request, response) {
         return value;
       });
       console.log(data);
-      response.status(200).render('favoritesList', { data: data } );
+      response.status(200).render('favoritesList', { data: data });
     });
 }
 
@@ -277,12 +327,12 @@ function Ingredient(data) {
 }
 
 // 5'0clock somewhere
-function fivePmHandler(request, response) {
-  response.status(200).render('fivePm', country: '');
-}
+// function fivePmHandler(request, response) {
+//   response.status(200).render('fivePm', country: '');
+// }
 
 
-function jokesHandler(request, response){
+function jokesHandler(request, response) {
   response.status(200).render('jokes');
 }
 
