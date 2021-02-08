@@ -8,8 +8,8 @@
   <%- include('layout/navbar') %>
 
   <body id="results">
-    <h1>Favorites List</h1>
     <% data.forEach(value => { %>
+    <div class="favorites-space"></div>
     <h2><%= value.name %></h2>
     <div id="home-info">
       <p><img src="<%= value.image %>" alt="Picture of Cocktail"></p>

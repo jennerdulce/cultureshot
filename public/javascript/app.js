@@ -30,7 +30,7 @@ $('#underage').on('click', function () {
 
 // 5 0'clock somewhere function
 const somePlace = document.getElementById('placeID');
-var fivePm = 21 - moment().format('H');
+var fivePm = 22 - moment().format('H');
 console.log(moment());
 let place = [
   'U.S. Minor Outlying Islands',
@@ -38,7 +38,7 @@ let place = [
   'Hawaii',
   'French Polynesia',
   'Alaska',
-  'California',
+  'Seattle',
   'Colorado',
   'Illinois',
   'New York',

@@ -64,9 +64,8 @@ nav a:link, nav a:active, nav a:visited {
   text-decoration: underline;
 }
 
-
 footer {
-  margin-top: 130px;
+  margin-top: 500px;
   display: flex;
   flex-direction: column;
 }
@@ -78,13 +77,14 @@ footer p {
   background-color: white;
   width: 90%;
   box-shadow: none;
+  border-radius: 25px;
+  padding: 3px 0px;
 }
 
 #icons {
   background-color: black;
   margin: auto;
   width: 480px;
-  color: white;
   display: flex;
   justify-content: space-around;
   font-size: 48px;
@@ -94,6 +94,25 @@ footer p {
 #icons a {
   color: white;
   text-decoration: none;
+  padding: 10px 0px;
+  transition: ease-in-out .3s;
+}
+
+#icons .twitter:hover {
+  color: #93C5FD;
+  
+}
+
+#icons .instagram:hover {
+  color: #DB2777
+}
+
+#icons .facebook:hover {
+  color: #2563EB
+}
+
+#icons .github:hover {
+  color: #34d351
 }
 
 
