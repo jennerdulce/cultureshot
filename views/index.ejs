@@ -8,19 +8,31 @@
   <%- include('layout/navbar') %>
   <body id="home">
 
-    <img id="hero" src="images/bartender.PNG" alt="picture">
+    <!-- <img id="hero" src="images/bartender.PNG" alt="picture"> -->
     <p id="day">
       Drink of the day <br> 
-      <%= dotd[0].name %>
+      "<%= dotd[0].name %>"
     </p>
     <div id="home-info">
-      <!-- <p></p> -->
       <p><img src="<%= dotd[0].img %>" alt=""></p>
-      <!-- <p></p> -->
     </div>
+    <form action="/frontpageDetails" method="POST">
+      <input type="hidden" name="search" value="<%= dotd[0].name %>">
+      <input type="hidden" name="filter" value="name">
+      <button class="button">View Drink</button>
+    </form>
 
     <div id="qr-code">
      <p><img id="qr-img" src="https://qrtag.net/api/qr.png" alt="qrtag"></p>
+    </div>
+
+    <div class="modal-bg">
+      <div class="modal">
+        <h2 id="tos">TERMS OF SERVICE</h2>
+        <p id="tosInfo">BY CLICKING "I AGREE", YOU ARE VERIFYING THAT YOU ARE THE AGE AND ARE ABLE TO DRINK ALCOHOLIC BEVERAGES. YOU AGREE THIS BUSINESS <b>DOES NOT</b> SUPPORT OR PROMOTE UNDERAGE CONSUMPTION OF ALCOHOLIC PRODUCTS OR ANY OTHER ILLEGAL ACTIVITY</p>
+        <input class="button" id="submit" type="submit" value="I AGREE">
+        <button class="button" id="underage">I AM NOT OF AGE</button>
+      </div>
     </div>
 
     <%- include('layout/footer') %>

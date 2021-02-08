@@ -1,9 +1,10 @@
 /* SEARCH FORM */
-#search-form h2, #history h2, #history-form h2, #details h2, #results h2, #ingredient h2 {
+#search-form h2, #history h2, #history-form h2, #details h2, #results h2, #ingredient h2, #jokebox h2, #ingredient-details h2 {
   font-size: 24px;
   margin-top: 10px;
   background-color: white;
-  color: black
+  color: black;
+  padding: 8px 0px
 }
 
 #search-form input, #history-form input {
@@ -40,6 +41,7 @@
   margin-top: 10px;
   width: 85%;
   box-shadow: 3px 5px 15px rgba(0, 0, 0, 1);
+  padding: 10px 10px
 }
 
 #details #lists ul, #ingredient-details #lists ul {
@@ -47,7 +49,7 @@
   margin: 0px 10px
 }
 
-#details p, #ingredient-details p, #history p {
+#details p, #ingredient-details p, #history p, #jokebox p {
   margin: 20px auto 10px auto;
   background-color: white;
   box-shadow: 3px 5px 15px rgba(0, 0, 0, .8);
@@ -55,31 +57,38 @@
 
 }
 
+#lists li {
+  padding: 5px
+}
+
+.directions {
+  padding: 10px;
+  line-height: 1.5em;
+}
+
+/* HISTORY */
+
 #history #history-info {
   overflow: auto;
   text-align: left;
   text-indent: 2em;
   padding: 30px 10px;
-  height: 400px
+  height: 400px;
+  line-height: 2em;
 }
 
 /* DAD JOKE */
-.jokebox{
-  background-color: bisque;
-  border-radius: 10px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1),0 6px 6px rgba(0, 0, 0, 0.1);
-  padding : 50px 20px;
-  max-width: 100%;
-  text-align: center;
-  width: 400px;
-  height: 400px;
-
+#jokebox #joke {
+  display: flex;
+  align-items: center;
+  padding: 0px 10px 0px 10px;
+  height: 150px;
 }
 
-.jokebox h2{
-  margin: 0;
-  letter-spacing: 2px;
-  opacity: 0.5;
+#get_joke {
+  width: 200px;
+  margin: auto;
+  margin-top: 10px
 }
 
 /* RESULTS */
@@ -97,7 +106,7 @@
 #buttons {
   display: flex;
   justify-content: space-around;
-  padding-top: 80px;
+  padding-top: 20px;
 }
 
 .button {
@@ -106,11 +115,14 @@
   color: white;
   padding: 10px 18px;
   font-size: 20px;
-  margin-top: 10px
+  margin-top: 10px;
+  border-radius: 30px;
 }
 
 .button:hover {
   cursor: pointer;
+  border-radius: 30px;
+  
 }
 
 /* HOME */
@@ -158,9 +170,42 @@
   padding: 10px 5px;
   width: 150px;
   box-shadow: 3px 5px 15px rgba(0, 0, 0, 1);
+  border-radius: 30px;
 }
+
 
 .statement {
   overflow: auto;
   padding: 5px;
+
+/* INGREDIENT DETAIL */
+#ingredient #home-info {
+  margin: auto;
+  margin-top: 20px
+}
+
+/* TOS */
+#tos {
+  font-size: 26px;
+}
+
+#tosInfo {
+  font-size: 20px;
+  overflow: auto;
+}
+
+b {
+  font-weight: 700;
+  color: red;
+}
+
+/* FAVORITES  */
+.favorites-space {
+  margin-bottom: 50px
+}
+
+.page-title {
+  font-family: 'Barlow Semi Condensed', sans-serif;
+  font-size: 20px;
+
 }

@@ -9,10 +9,12 @@ if (retrievedData) {
 $('#submit').on('click', function () {
   $('.modal-bg').toggle();
   $('.modal').toggle();
+  var stringifiedResults = JSON.stringify(['hello', 'true']);
+  localStorage.setItem('storedResults', stringifiedResults);
 });
 
 
-$('#hamburger').on('click', function(){
+$('#hamburger').on('click', function () {
   $('#menu').fadeToggle(500);
 
 });
@@ -22,45 +24,21 @@ $('#underage').on('click', function () {
   window.location.href = 'https://babiesrus.com/';
 });
 
-// LOCAL STORAGE
-var stringifiedResults = JSON.stringify(['hello', 'true']);
-localStorage.setItem('storedResults', stringifiedResults);
 
 
-// DAD JOKE
-const jokeEl = document.getElementById('joke');
-const get_joke = document.getElementById('get_joke');
-get_joke.addEventListener('click', generateJoke);
-generateJoke();
-async function generateJoke() {
-  const jokeRes = await fetch('https://icanhazdadjoke.com/', {
-    headers: {
-      'Accept': 'application/json'
-    }
-  });
-  const joke = await jokeRes.json();
-  console.log(joke);
-  jokeEl.innerHTML = joke.joke;
-}
+
 
 // 5 0'clock somewhere function
-const fivePm = 24 - moment().format('H');
-const placeRes = document.getElementById('place');
-let render = function (num){
-  console.log(num);
-  $('#place').innerHTML(place[num]);};
-
-  
-
-  // render(fivePm);
-
+const somePlace = document.getElementById('placeID');
+var fivePm = 22 - moment().format('H');
+console.log(moment());
 let place = [
   'U.S. Minor Outlying Islands',
   'American Samoa',
   'Hawaii',
   'French Polynesia',
   'Alaska',
-  'California',
+  'Seattle',
   'Colorado',
   'Illinois',
   'New York',
@@ -80,3 +58,26 @@ let place = [
   'Guam',
   'New Zealand'
 ];
+
+function somePlaceFunction(num) {
+  console.log(num);
+  $(somePlace).html(`( its 5 o'clock in ${place[num]}.. )`);
+};
+somePlaceFunction(fivePm);
+
+
+// DAD JOKE
+const jokeEl = document.getElementById('joke');
+const get_joke = document.getElementById('get_joke');
+get_joke.addEventListener('click', generateJoke);
+generateJoke();
+async function generateJoke() {
+  const jokeRes = await fetch('https://icanhazdadjoke.com/', {
+    headers: {
+      'Accept': 'application/json'
+    }
+  });
+  const joke = await jokeRes.json();
+  console.log(joke);
+  jokeEl.innerHTML = joke.joke;
+}

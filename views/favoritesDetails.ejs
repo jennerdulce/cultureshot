@@ -14,17 +14,17 @@
     </div>
     <div id="lists">
       <ul>
-        <% data.ingredients.forEach((value, index) => { %>
-        <li><%= value %></li>
-        <% }) %>
-      </ul>
-      <ul>
         <% data.measurements.forEach((value, index) => { %>
         <li><%= value %></li>
         <% }) %>
       </ul>
+      <ul>
+        <% data.ingredients.forEach((value, index) => { %>
+        <li><%= value %></li>
+        <% }) %>
+      </ul>
     </div>
-    <p><%= data.instructions %></p>
+    <p class="directions"><%= data.instructions %></p>
     <form action="/favoritesList">
       <input class="button" type="submit" value="Back">
     </form>
