@@ -1,0 +1,87 @@
+<html lang="en">
+
+<head>
+  <%- include('layout/head') %>
+</head>
+
+<div id="container">
+  <%- include('layout/navbar') %>
+
+    <body id="home">
+      <section>
+        <p id="day">
+          Jenner Dulce<br>
+        </p>
+
+        <div id="home-info">
+          <p><img src="/images/Jenner.jpg" alt=""></p>
+          <p class="statement">My name is Jenner Dulce and I am a Software Developer! I have 15+ years of computer experience through being an avid PC Gamer. Although, I thought that It only made sense to make a career out of what I am good at! I am ecstatic that I have found something I am passionate about and worth doing for the rest of my lifetime. Besides coding, I like to surf, snowboard, walk my dog, and spend quality time with my friends and family!</p>
+        </div>
+
+        <form action="/aboutusFavorites" method="POST">
+          <input type="hidden" name="search" value="White Russian">
+          <button class="button">Jenner's Fav Aperitif</button>
+        </form>
+
+      </section>
+
+      <section>
+        <p id="day">
+          Jacque Young<br>
+        </p>
+  
+        <div id="home-info">
+          <p><img src="/images/Jacque.jpg" alt=""></p>
+          <p class="statement">Hello, my name is Jacque. My coding journey started quite a while ago.  My first introduction to coding was an HTML4 class and the new thing at that time was XHTML so, that tells you how long ago that was.  Unfortunately, we moved, bought a house and I had to quit school. I had to get a full time job, so I started working at a bank as an Admin Assistant and now 13 years later I am a Admin Projects Coordinator.   I never thought I would ever get the chance to go back to school and learn how to code so I pretty much gave up.  I gave up on a lot of stuff.  But since I started learning about Buddhist philosophy , I’ve been looking at life differently and I’ve taken control of what I want to do in my life to be happy. I heard about Code Fellows and I wanted to finish what I started, so, here I am.  I would like to eventually take the skills that I'm learning at Code Fellows and find a position utilizing these skills.  Times are changing and changing fast.  Having these skills will make me more relevant in the workforce. 
+          </p>
+        </div>
+  
+        <form action="/aboutusFavorites" method="POST">
+          <input type="hidden" name="search" value="Cosmopolitan Martini">
+          <button class="button">Jacque's Fav Aperitif</button>
+        </form>
+  
+      </section>
+
+      <section>
+        <p id="day">
+          Davion Garcia<br>
+        </p>
+  
+        <div id="home-info">
+          <p><img src="/images/Davion.png" alt=""></p>
+          <p class="statement">Hi, my name is Davion. I am an Air Force vet of 7 years and have been working as a carpenter for just about a year now. I decided to take on learning software development as an assurance of job security because I know there is a ceiling on my physical labor. Even so, I've really enjoyed the process so far. It has not been easy but its definitely been worthwhile.  I'm looking forward to where this will take me and hopefully it is to a position where I build projects that increase productivity or benefit leisure.</p>
+        </div>
+  
+        <form action="/aboutusFavorites" method="POST">
+          <input type="hidden" name="search" value="bourbon">
+          <button class="button">Davion's Fav Aperitif</button>
+        </form>
+      </sectiom>
+
+      <section>
+        <p id="day">
+          John Ramirez<br>
+        </p>
+  
+        <div id="home-info">
+          <p><img src="" alt=""></p>
+          <p class="statement">Statement here</p>
+        </div>
+  
+        <form action="/aboutusFavorites" method="POST">
+          <input type="hidden" name="search" value="mead">
+          <button class="button">John's Fav Aperitif</button>
+        </form>
+  
+
+      </section>
+
+
+
+      <%- include('layout/footer') %>
+        <script src="javascript/app.js"></script>
+    </body>
+</div>
+
+</html>
