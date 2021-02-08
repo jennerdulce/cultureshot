@@ -123,6 +123,9 @@ function historyHandler(request, response){
     .then(results => {
       let data = results.body.ingredients[0];
       response.status(200).render('history', { data: data});
+    })
+    .catch(err => {
+      throw err;
     });
 }
 
