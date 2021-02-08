@@ -3,7 +3,8 @@
   font-size: 24px;
   margin-top: 10px;
   background-color: white;
-  color: black
+  color: black;
+  padding: 8px 0px
 }
 
 #search-form input, #history-form input {
@@ -56,13 +57,24 @@
 
 }
 
+#lists li {
+  padding: 5px
+}
+
+.directions {
+  padding: 10px;
+  line-height: 1.5em;
+}
+
+/* HISTORY */
 
 #history #history-info {
   overflow: auto;
   text-align: left;
   text-indent: 2em;
   padding: 30px 10px;
-  height: 400px
+  height: 400px;
+  line-height: 2em;
 }
 
 /* DAD JOKE */
@@ -94,7 +106,7 @@
 #buttons {
   display: flex;
   justify-content: space-around;
-  padding-top: 80px;
+  padding-top: 20px;
 }
 
 .button {
@@ -161,8 +173,39 @@
   border-radius: 30px;
 }
 
+
+.statement {
+  overflow: auto;
+  padding: 5px;
+
 /* INGREDIENT DETAIL */
 #ingredient #home-info {
   margin: auto;
   margin-top: 20px
+}
+
+/* TOS */
+#tos {
+  font-size: 26px;
+}
+
+#tosInfo {
+  font-size: 20px;
+  overflow: auto;
+}
+
+b {
+  font-weight: 700;
+  color: red;
+}
+
+/* FAVORITES  */
+.favorites-space {
+  margin-bottom: 50px
+}
+
+.page-title {
+  font-family: 'Barlow Semi Condensed', sans-serif;
+  font-size: 20px;
+
 }
