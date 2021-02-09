@@ -25,7 +25,7 @@
         <% }) %>
       </ul>
     </div>
-    <p><%= data.instructions %></p>
+    <p class="directions"><%= data.instructions %></p>
     <form action="/favorites" method="POST">
       <input type="hidden" name="name" value="<%= data.name %>">
       <input type="hidden" name="instructions" value="<%= data.instructions %>">
