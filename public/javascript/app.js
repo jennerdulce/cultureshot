@@ -30,7 +30,7 @@ $('#underage').on('click', function () {
 
 // 5 0'clock somewhere function
 const somePlace = document.getElementById('placeID');
-var fivePm = 22 - moment().format('H');
+var fivePm = 24 - moment().format('H');
 console.log(moment());
 let place = [
   'U.S. Minor Outlying Islands',
@@ -59,11 +59,11 @@ let place = [
   'New Zealand'
 ];
 
-function somePlaceFunction(num) {
-  console.log(num);
-  $(somePlace).html(`( its 5 o'clock in ${place[num]}.. )`);
-};
-somePlaceFunction(fivePm);
+// function somePlaceFunction(num) {
+//   console.log(num);
+//   $(somePlace).html(`( its 5 o'clock in ${place[num]}.. )`);
+// };
+// somePlaceFunction(fivePm);
 
 
 // DAD JOKE
