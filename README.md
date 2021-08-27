@@ -29,7 +29,7 @@ People are stressed throughout a busy work week and want to relax, our app allow
 ![Delete From Favorites](https://j.gifs.com/BrPp4W.gif)
 
 ### Search
-![Search](https://j.gifs.com/LZvD4j.gif)
+![Search](https://j.gifs.com/6WByOz.gif)
 
 ## Tech/framework used
 
